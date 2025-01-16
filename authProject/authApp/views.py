@@ -29,13 +29,15 @@ def register_view(request):
             user = User.objects.create_user(username=username, password=password)
             login(request, user)
             return redirect('home')
-        else:
-            form = RegisterForm()
-            return render(request, 'accounts/register.html', {'form':form})
+    else:
+        form = RegisterForm()
+        
+    return render(request, 'accounts/register.html', {'form':form})
 
             
 
 def login_view(request):
+    error_message = None
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -61,7 +63,7 @@ def logout_view(request):
 # Using the decorator
 @login_required
 def home_view(request):
-    return render(request, 'home/home.html')
+    return render(request, 'auth1_app/home.html')
 
 # Protected View
 class ProtectedView(LoginRequiredMixin, View):
